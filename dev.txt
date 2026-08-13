@@ -1,0 +1,3 @@
+- recherche JWT
+- securite des endpoints
+- api doit etre securise
