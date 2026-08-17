@@ -20,7 +20,7 @@ export async function getAllUsers(
         console.error(error);
 
         res.status(500).json({
-            message: "Erreur serveur"
+            message: "Servor error"
         });
     }
 }
@@ -34,7 +34,7 @@ export async function getOneUser(
 
         if (isNaN(id)) {
             res.status(400).json({
-                message: "ID invalide"
+                message: "invalid ID"
             });
             return;
         }
@@ -43,7 +43,7 @@ export async function getOneUser(
 
         if (!user) {
             res.status(404).json({
-                message: "Utilisateur non trouvé"
+                message: "User not found"
             });
             return;
         }
@@ -53,7 +53,7 @@ export async function getOneUser(
         console.error(error);
 
         res.status(500).json({
-            message: "Erreur serveur"
+            message: "Servor error"
         });
     }
 }
@@ -67,7 +67,7 @@ export async function createNewUser(
 
         if (!name || !email) {
             res.status(400).json({
-                message: "name et email sont obligatoires"
+                message: "name and email are mandatory"
             });
             return;
         }
@@ -82,7 +82,7 @@ export async function createNewUser(
         console.error(error);
 
         res.status(500).json({
-            message: "Erreur serveur"
+            message: "Servor error"
         });
     }
 }
@@ -96,7 +96,7 @@ export async function updateExistingUser(
 
         if (isNaN(id)) {
             res.status(400).json({
-                message: "ID invalide"
+                message: "invalid ID"
             });
             return;
         }
@@ -105,7 +105,7 @@ export async function updateExistingUser(
 
         if (!name || !email) {
             res.status(400).json({
-                message: "name et email sont obligatoires"
+                message: "name and email are mandatory"
             });
             return;
         }
@@ -117,7 +117,7 @@ export async function updateExistingUser(
 
         if (!user) {
             res.status(404).json({
-                message: "Utilisateur non trouvé"
+                message: "User not found"
             });
             return;
         }
@@ -127,7 +127,7 @@ export async function updateExistingUser(
         console.error(error);
 
         res.status(500).json({
-            message: "Erreur serveur"
+            message:  "Servor error"
         });
     }
 }
@@ -141,7 +141,7 @@ export async function removeUser(
 
         if (isNaN(id)) {
             res.status(400).json({
-                message: "ID invalide"
+                message: "invalid ID"
             });
             return;
         }
@@ -150,20 +150,20 @@ export async function removeUser(
 
         if (!user) {
             res.status(404).json({
-                message: "Utilisateur non trouvé"
+                message: "User not found"
             });
             return;
         }
 
         res.status(200).json({
-            message: "Utilisateur supprimé",
+            message: "User deleted",
             user
         });
     } catch (error) {
         console.error(error);
 
         res.status(500).json({
-            message: "Erreur serveur"
+            message: "Servor error"
         });
     }
 }
