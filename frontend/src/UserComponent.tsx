@@ -5,7 +5,7 @@ function UserComponent({ user } : { user: User }) {
         <div>
             <h2>{user.id}</h2>
             <p>{user.name}</p>
-            <p>{user.mail}</p>
+            <p>{user.email}</p>
         </div>
     )
 }

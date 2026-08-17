@@ -3,7 +3,7 @@ import { useEffect, useState } from "react";
 export interface User {
     id:number,
     name:string,
-    mail:string
+    email:string
 }
 
 export function useUsersList(): User[] {
