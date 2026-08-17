@@ -6,7 +6,7 @@ import {
     createUser,
     updateUser,
     deleteUser
-} from "../services/users.service.js";
+} from "../services/usersService.js";
 
 export async function getAllUsers(
     req: Request,
