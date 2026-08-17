@@ -6,7 +6,7 @@ export interface User {
     email:string
 }
 
-export function useUsersList(): User[] {
+export function useUsersList() {
     const [users, setUsers] = useState<User[]>([]);
 
     useEffect(() => {
@@ -28,7 +28,7 @@ export function useUsersList(): User[] {
         fetchUsers();
     }, [])
 
-    return users;
+    return [users, setUsers] as const;
 }
 
 export async function createUser(user: Omit<User, 'id'>): Promise<User | null> {
