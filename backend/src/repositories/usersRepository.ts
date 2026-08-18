@@ -1,28 +1,24 @@
-import pool from "../db/database.js";
+import pool from "../config/database.js";
 import { User, type CreateUser } from "../models/userModel.js";
 
-export async function findAll(): Promise<User[]> {
+export const findAll = async (): Promise<User[]> => {
     const result = await pool.query(
         "SELECT * FROM users ORDER BY id"
     );
 
     return result.rows;
-}
+};
 
-export async function findById(id: number): Promise<User | null> {
+export const findById = async (id: number): Promise<User | null> => {
     const result = await pool.query(
         "SELECT * FROM users WHERE id = $1",
         [id]
     );
 
-    if (result.rows.length === 0) {
-        return null;
-    }
+    return result.rows[0] || null;
+};
 
-    return result.rows[0];
-}
-
-export async function create(user: CreateUser): Promise<User> {
+export const create = async (user: CreateUser): Promise<User> => {
     const result = await pool.query(
         `INSERT INTO users (name, email)
          VALUES ($1, $2)
@@ -31,13 +27,12 @@ export async function create(user: CreateUser): Promise<User> {
     );
 
     return result.rows[0];
-}
+};
 
-export async function update(
+export const update = async (
     id: number,
     user: CreateUser
-): Promise<User | null> {
-
+): Promise<User | null> => {
     const result = await pool.query(
         `UPDATE users
          SET name = $1, email = $2
@@ -46,10 +41,10 @@ export async function update(
         [user.name, user.email, id]
     );
 
-    return result.rows.length === 0 ? null : result.rows[0];
-}
+    return result.rows[0] || null;
+};
 
-export async function remove(id: number): Promise<User | null> {
+export const remove = async (id: number): Promise<User | null> => {
     const result = await pool.query(
         `DELETE FROM users
          WHERE id = $1
@@ -57,5 +52,5 @@ export async function remove(id: number): Promise<User | null> {
         [id]
     );
 
-    return result.rows.length === 0 ? null : result.rows[0];
-}
+    return result.rows[0] || null;
+};

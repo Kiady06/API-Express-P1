@@ -8,25 +8,17 @@ import {
 
 import { User, type CreateUser } from "../models/userModel.js";
 
-export async function getUsers(): Promise<User[]> {
-    return await findAll();
-}
+export const getUsers = (): Promise<User[]> => 
+    findAll();
 
-export async function getUserById(id: number): Promise<User | null> {
-    return await findById(id);
-}
+export const getUserById = (id: number): Promise<User | null> => 
+    findById(id);
 
-export async function createUser(user: CreateUser): Promise<User> {
-    return await create(user);
-}
+export const createUser = (user: CreateUser): Promise<User> => 
+    create(user);
 
-export async function updateUser(
-    id: number,
-    user: CreateUser
-): Promise<User | null> {
-    return await update(id, user);
-}
+export const updateUser = (id: number, user: CreateUser): Promise<User | null> => 
+    update(id, user);
 
-export async function deleteUser(id: number): Promise<User | null> {
-    return await remove(id);
-}
+export const deleteUser = (id: number): Promise<User | null> => 
+    remove(id);

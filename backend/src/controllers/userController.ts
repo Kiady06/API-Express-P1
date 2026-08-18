@@ -8,150 +8,99 @@ import {
     deleteUser
 } from "../services/usersService.js";
 
-export async function getAllUsers(
-    req: Request,
-    res: Response
-) {
+export const getAllUsers = async (req: Request, res: Response): Promise<void> => {
     try {
         const users = await getUsers();
-
         res.status(200).json(users);
     } catch (error) {
         console.error(error);
-
-        res.status(500).json({
-            message: "Servor error"
-        });
+        res.status(500).json({ message: "Server error" });
     }
-}
+};
 
-export async function getOneUser(
-    req: Request,
-    res: Response
-) {
+export const getOneUser = async (req: Request, res: Response): Promise<void> => {
     try {
         const id = Number(req.params.id);
 
         if (isNaN(id)) {
-            res.status(400).json({
-                message: "invalid ID"
-            });
+            res.status(400).json({ message: "Invalid ID" });
             return;
         }
 
         const user = await getUserById(id);
 
         if (!user) {
-            res.status(404).json({
-                message: "User not found"
-            });
+            res.status(404).json({ message: "User not found" });
             return;
         }
 
         res.status(200).json(user);
     } catch (error) {
         console.error(error);
-
-        res.status(500).json({
-            message: "Servor error"
-        });
+        res.status(500).json({ message: "Server error" });
     }
-}
+};
 
-export async function createNewUser(
-    req: Request,
-    res: Response
-) {
+export const createNewUser = async (req: Request, res: Response): Promise<void> => {
     try {
         const { name, email } = req.body;
 
         if (!name || !email) {
-            res.status(400).json({
-                message: "name and email are mandatory"
-            });
+            res.status(400).json({ message: "Name and email are mandatory" });
             return;
         }
 
-        const user = await createUser({
-            name,
-            email
-        });
-
+        const user = await createUser({ name, email });
         res.status(201).json(user);
     } catch (error) {
         console.error(error);
-
-        res.status(500).json({
-            message: "Servor error"
-        });
+        res.status(500).json({ message: "Server error" });
     }
-}
+};
 
-export async function updateExistingUser(
-    req: Request,
-    res: Response
-) {
+export const updateExistingUser = async (req: Request, res: Response): Promise<void> => {
     try {
         const id = Number(req.params.id);
 
         if (isNaN(id)) {
-            res.status(400).json({
-                message: "invalid ID"
-            });
+            res.status(400).json({ message: "Invalid ID" });
             return;
         }
 
         const { name, email } = req.body;
 
         if (!name || !email) {
-            res.status(400).json({
-                message: "name and email are mandatory"
-            });
+            res.status(400).json({ message: "Name and email are mandatory" });
             return;
         }
 
-        const user = await updateUser(id, {
-            name,
-            email
-        });
+        const user = await updateUser(id, { name, email });
 
         if (!user) {
-            res.status(404).json({
-                message: "User not found"
-            });
+            res.status(404).json({ message: "User not found" });
             return;
         }
 
         res.status(200).json(user);
     } catch (error) {
         console.error(error);
-
-        res.status(500).json({
-            message:  "Servor error"
-        });
+        res.status(500).json({ message: "Server error" });
     }
-}
+};
 
-export async function removeUser(
-    req: Request,
-    res: Response
-) {
+export const removeUser = async (req: Request, res: Response): Promise<void> => {
     try {
         const id = Number(req.params.id);
 
         if (isNaN(id)) {
-            res.status(400).json({
-                message: "invalid ID"
-            });
+            res.status(400).json({ message: "Invalid ID" });
             return;
         }
 
         const user = await deleteUser(id);
 
         if (!user) {
-            res.status(404).json({
-                message: "User not found"
-            });
+            res.status(404).json({ message: "User not found" });
             return;
         }
 
@@ -161,9 +110,6 @@ export async function removeUser(
         });
     } catch (error) {
         console.error(error);
-
-        res.status(500).json({
-            message: "Servor error"
-        });
+        res.status(500).json({ message: "Server error" });
     }
-}
+};
