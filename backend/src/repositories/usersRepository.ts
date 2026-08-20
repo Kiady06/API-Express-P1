@@ -18,12 +18,21 @@ export const findById = async (id: number): Promise<User | null> => {
     return result.rows[0] || null;
 };
 
+export const findByEmail = async (email: string): Promise<User | null> => {
+    const result = await pool.query(
+        "SELECT * FROM users WHERE email = $1",
+        [email]
+    );
+
+    return result.rows[0] || null;
+};
+
 export const create = async (user: CreateUser): Promise<User> => {
     const result = await pool.query(
-        `INSERT INTO users (name, email)
-         VALUES ($1, $2)
+        `INSERT INTO users (name, email, password, role)
+         VALUES ($1, $2, $3, $4)
          RETURNING *`,
-        [user.name, user.email]
+        [user.name, user.email, user.password, user.role ?? "user"]
     );
 
     return result.rows[0];
@@ -31,7 +40,7 @@ export const create = async (user: CreateUser): Promise<User> => {
 
 export const update = async (
     id: number,
-    user: CreateUser
+    user: Omit<CreateUser, "password">
 ): Promise<User | null> => {
     const result = await pool.query(
         `UPDATE users
