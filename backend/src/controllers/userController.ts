@@ -43,14 +43,19 @@ export const getOneUser = async (req: Request, res: Response): Promise<void> => 
 
 export const createNewUser = async (req: Request, res: Response): Promise<void> => {
     try {
-        const { name, email } = req.body;
+        const { name, email, password, role } = req.body;
 
-        if (!name || !email) {
-            res.status(400).json({ message: "Name and email are mandatory" });
+        if (!name || !email || !password) {
+            res.status(400).json({ message: "Name, email and password are mandatory" });
             return;
         }
 
-        const user = await createUser({ name, email });
+        if (role && role !== "admin" && role !== "user") {
+            res.status(400).json({ message: "Role must be 'admin' or 'user'" });
+            return;
+        }
+
+        const user = await createUser({ name, email, password, role });
         res.status(201).json(user);
     } catch (error) {
         console.error(error);
